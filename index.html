@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0f2a5c" />
+  <title>Snap &amp; Identify — Mechanical AI</title>
+  <link rel="stylesheet" href="style.css?v=5" />
+</head>
+<body>
+  <!-- Hero -->
+  <header class="top">
+    <div class="top-inner">
+      <svg class="logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M18.7 5.3l-2.1 2.1M7.4 16.6l-2.1 2.1"/></svg>
+      <div><h1>Snap &amp; Identify</h1><p>Mechanical AI · identify parts from a photo</p></div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Step 1: image input -->
+    <section class="card" aria-labelledby="h-input">
+      <div class="card-head"><span class="step">1</span><h2 id="h-input">Add a photo</h2></div>
+
+      <div id="picker" class="dropzone">
+        <div class="drop-icons" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l1.5-2h7L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg>
+          <span class="divider"></span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M21 16l-5-5-8 8"/></svg>
+        </div>
+        <p class="drop-text">
+          <span class="drop-desktop">Drag &amp; drop an image here</span>
+          <span class="drop-touch">Choose a photo of the component</span>
+        </p>
+        <button id="uploadBtn" class="btn gradient" type="button">Upload image</button>
+        <p class="or">or <button id="cameraBtn" class="link" type="button">take a photo</button></p>
+        <!-- Hidden inputs, opened by the buttons above. capture="environment" opens the rear camera on phones -->
+        <input id="uploadInput" type="file" accept="image/*" hidden />
+        <input id="cameraInput" type="file" accept="image/*" capture="environment" hidden />
+      </div>
+
+      <div id="previewBox" class="preview" hidden>
+        <img id="preview" alt="Selected component preview" />
+        <button id="removeBtn" class="btn ghost" type="button">✕ Remove / change image</button>
+      </div>
+
+      <p id="message" class="message" role="alert" hidden></p>
+      <button id="identifyBtn" class="btn publish wide" type="button">Identify component</button>
+      <div id="loading" class="loading" hidden><span class="spinner"></span> Analyzing image… this can take up to 30 seconds</div>
+    </section>
+
+    <!-- Step 2: result -->
+    <section id="result" class="card result" hidden aria-live="polite">
+      <div class="card-head"><span class="step">2</span><h2>Result</h2></div>
+      <h3 id="rName" class="name"></h3>
+      <span id="rConf" class="badge"></span>
+      <p id="unclear" class="warn" hidden>Image unclear. Please retake the photo with better lighting, focus, and a full view of the component.</p>
+      <dl class="facts">
+        <div class="item"><dt>Function</dt><dd id="rFunction"></dd></div>
+        <div class="item"><dt>Common applications</dt><dd id="rApps"></dd></div>
+        <div class="item"><dt>Visible identifying features</dt><dd id="rFeatures"></dd></div>
+        <div class="item"><dt>Image quality note</dt><dd id="rQuality"></dd></div>
+      </dl>
+    </section>
+
+    <!-- Quiz -->
+    <section class="card" aria-labelledby="h-quiz">
+      <div class="card-head"><span class="step">3</span><h2 id="h-quiz">Test Your Knowledge</h2></div>
+      <p id="quizStatus" class="quiz-status" hidden></p>
+      <button id="retryQuiz" class="btn ghost wide" type="button" hidden>Try creating the quiz again</button>
+      <div id="quiz"></div>
+      <button id="submitQuiz" class="btn primary wide" type="button">Submit Answers</button>
+      <p id="score" class="score" hidden></p>
+    </section>
+
+    <footer>Built for mechanical engineering students · AI can make mistakes, so double-check important answers. · v5</footer>
+  </main>
+
+  <script src="script.js?v=5"></script>
+</body>
+</html>
